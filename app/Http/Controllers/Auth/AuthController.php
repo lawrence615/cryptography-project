@@ -20,6 +20,8 @@ use App\Http\Controllers\SmsController;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 
+use Illuminate\Support\Facades\Redirect;
+
 
 class AuthController extends Controller
 {
@@ -76,7 +78,8 @@ class AuthController extends Controller
 
 
         ///verify
-        return redirect('/verify');
+//        return redirect('/verify');
+        return redirect('/verify')->with('message', 'Successfully registered. Verify your count with the code received');
     }
 
 
@@ -97,7 +100,7 @@ class AuthController extends Controller
             $data->save();
             return redirect('auth/login');
         } else {
-            return redirect()->back()->withErrors($v->errors());
+            return redirect()->back()->with('message', 'Inavlid code!');
         }
     }
 
@@ -112,7 +115,8 @@ class AuthController extends Controller
 
         $sms = new SmsController();
 
-        $sms->sendSms('+254723384144', $message, $user_id);
+
+        $sms->sendSms($this->makeNumberInternational($number), $message, $user_id);
 
     }
 
@@ -140,8 +144,15 @@ class AuthController extends Controller
                     'email' => $this->getFailedLoginMessage(),
                 ]);
         }
+    }
 
 
+    protected function makeNumberInternational($phone_number)
+    {
+        $first_digit = substr($phone_number, 0, 1);
+        if ($first_digit == 0) {
+            return "+254" . substr($phone_number, 1, 9);
+        }
     }
 
 

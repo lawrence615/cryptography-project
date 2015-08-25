@@ -44,11 +44,6 @@ class Registrar implements RegistrarContract
     }
 
 
-    protected function generateVerificationCode($phone_no)
-    {
-        return str_random(30);;
-    }
-
 
     function luhnify()
     {

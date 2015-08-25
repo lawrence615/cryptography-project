@@ -15,6 +15,13 @@
                 </ul>
             </div>
          @endif
+
+         @if(Session::has('message'))
+
+         <ul>
+              <li> <p class="alert alert-danger">{{ Session::get('message') }}</p></li>
+         </ul>
+         @endif
         <form class="col s12" role="form" method="POST" action="/verify">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="input-field">

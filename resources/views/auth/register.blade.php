@@ -3,9 +3,9 @@
 @section('content')
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col s7 offset-s3">
 			<div class="panel panel-default">
-				<div class="panel-heading">Register</div>
+				<h4>Register</h4>
 				<div class="panel-body">
 					@if (count($errors) > 0)
 						<div class="alert alert-danger">
